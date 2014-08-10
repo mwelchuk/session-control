@@ -7,6 +7,11 @@ minutes, the session is terminated. If the user agrees to the terms and
 conditions, they will have 30 minutes before the session is terminated, with a
 reminder to save work to a USB drive 5 minutes before the end of the session.
 
+If the desktop file is integrated into the required "$USER/.config/autostart/"
+directory (or "/etc/skel/.config/autostart" when using the Guest user
+functionality) the application will be autostarted. A DEB package built as
+detailed below will integrate for the Guest user.
+
 BUILDING THE PACKAGE
 
 This package can be deployed as a DEB package. Run the following command to
