@@ -18,6 +18,7 @@
 #
 
 import os
+import sys
 import threading
 
 # Session length in minutes
@@ -34,7 +35,16 @@ def time_reminder():
 	os.system("/usr/bin/zenity --warning --title \"%d minute warning\" --text \"You have %d minutes before the session will be terminated. Please ensure you have saved all open documents you wish to keep to a USB drive before the session closes.\"" %(REMINDER_TIMING, REMINDER_TIMING))
 
 def close_session():
-	os.system("/usr/bin/xfce4-session-logout -l")
+	gnomeish= ["gnome", "gnome-classic", "gnome-fallback", "ubuntu", "ubuntu-2d"]
+	if os.environ["DESKTOP_SESSION"] in gnomeish:
+		os.system("/usr/bin/gnome-session-quit --logout --force")
+	elif os.environ["DESKTOP_SESSION"] == "xfce":
+		os.system("/usr/bin/xfce4-session-logout -l")
+	else:
+		os.system("/usr/bin/zenity --error --title \"Session Termination Failed\" --text \"Termination of the session failed, session-control doesn't recognise the session type %s\"" %(os.environ["DESKTOP_SESSION"]))
+		sys.exit(1)
+
+	sys.exit(0)
 
 if __name__ == "__main__":
 	timer1 = threading.Timer(SESSION_LENGTH * 60, close_session, [])
