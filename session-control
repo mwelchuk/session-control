@@ -35,10 +35,11 @@ def time_reminder():
 	os.system("/usr/bin/zenity --warning --title \"%d minute warning\" --text \"You have %d minutes before the session will be terminated. Please ensure you have saved all open documents you wish to keep to a USB drive before the session closes.\"" %(REMINDER_TIMING, REMINDER_TIMING))
 
 def close_session():
-	gnomeish= ["gnome", "gnome-classic", "gnome-fallback", "ubuntu", "ubuntu-2d"]
+	gnomeish = ["gnome", "gnome-classic", "gnome-fallback", "ubuntu", "ubuntu-2d"]
+	xfceish = ["xfce", "xubuntu"]
 	if os.environ["DESKTOP_SESSION"] in gnomeish:
 		os.system("/usr/bin/gnome-session-quit --logout --force")
-	elif os.environ["DESKTOP_SESSION"] == "xfce":
+	elif os.environ["DESKTOP_SESSION"] in xfceish:
 		os.system("/usr/bin/xfce4-session-logout -l")
 	else:
 		os.system("/usr/bin/zenity --error --title \"Session Termination Failed\" --text \"Termination of the session failed, session-control doesn't recognise the session type %s\"" %(os.environ["DESKTOP_SESSION"]))
