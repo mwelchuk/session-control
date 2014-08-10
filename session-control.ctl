@@ -22,6 +22,7 @@ Readme: README
 # Extra-Files: <comma-separated list of additional files for the doc directory>
 Files: session-control /usr/bin/
   tnc.html /usr/lib/session-control/
+  session-control.desktop /etc/skel/.config/autostart/
 Description: Basic session control for public computer
  This application provides basic control of sessions. It will display Terms and
  Conditions when a session is started, giving the user 2 minutes to agree. If
