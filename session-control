@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+# Public PC session control
+# Copyright (C) 2014 Martyn Welch
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+
+import os
+import threading
+
+# Session length in minutes
+SESSION_LENGTH = 30
+
+# Number of minutes before time is up to display reminder
+REMINDER_TIMING = 5
+
+# Time to give user to respond to T&Cs in minutes
+TNCS_TIME = 2
+
+
+def time_reminder():
+	os.system("/usr/bin/zenity --warning --title \"%d minute warning\" --text \"You have %d minutes before the session will be terminated. Please ensure you have saved all open documents you wish to keep to a USB drive before the session closes.\"" %(REMINDER_TIMING, REMINDER_TIMING))
+
+def close_session():
+	os.system("/usr/bin/xfce4-sessioni-logout -l")
+
+if __name__ == "__main__":
+	timer1 = threading.Timer(SESSION_LENGTH * 60, close_session, [])
+	timer2 = threading.Timer(TNCS_TIME * 60, close_session, [])
+	timer3 = threading.Timer((SESSION_LENGTH - REMINDER_TIMING) * 60, time_reminder, [])
+
+	timer1.start()
+	timer2.start()
+	timer3.start()
+
+	retval = os.system("/usr/bin/zenity --text-info --title \"Terms and Conditions\" --html --filename \"tnc.html\"")
+	if retval == 0:
+		print "Stopping T&Cs timeout"
+		timer2.cancel()
+

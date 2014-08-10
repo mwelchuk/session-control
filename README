@@ -1,0 +1,18 @@
+Session control application for simple public PC
+
+This application provides basic control of sessions. It will display Terms and
+Conditions when a session is started, giving the user 2 minutes to agree. If
+the user disagrees with the terms and conditions, or fails to respond in the 2
+minutes, the session is terminated. If the user agrees to the terms and
+conditions, they will have 30 minutes before the session is terminated, with a
+reminder to save work to a USB drive 5 minutes before the end of the session.
+
+BUILDING THE PACKAGE
+
+This package can be deployed as a DEB package. Run the following command to
+build the DEB:
+
+  equivs-build session-control.ctl
+
+You will need the "equivs" package installed.
+
