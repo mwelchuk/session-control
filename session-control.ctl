@@ -3,7 +3,7 @@
 # Source: <source package name; defaults to package name>
 Section: misc
 Priority: optional
-# Homepage: <enter URL here; no default>
+Homepage: https://github.com/mwelchuk/session-control
 Standards-Version: 3.9.2
 
 Package: session-control
@@ -16,7 +16,7 @@ Depends: xfce4, zenity
 # Provides: <comma-separated list of packages>
 # Replaces: <comma-separated list of packages>
 Architecture: all
-Copyright: COPYING
+Copyright: LICENSE
 # Changelog: <changelog file; defaults to a generic changelog>
 Readme: README
 # Extra-Files: <comma-separated list of additional files for the doc directory>
